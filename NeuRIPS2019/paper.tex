@@ -1,0 +1,130 @@
+\documentclass{article}
+
+\usepackage{mathtools}% http://ctan.org/pkg/mathtools
+\usepackage{amssymb}% http://ctan.org/pkg/amssymb
+
+% if you need to pass options to natbib, use, e.g.:
+\PassOptionsToPackage{numbers, compress}{natbib}
+% before loading neurips_2019
+
+% ready for submission
+% \usepackage{neurips_2019}
+
+% to compile a preprint version, e.g., for submission to arXiv, add add the
+% [preprint] option:
+    % \usepackage[preprint]{neurips_2019}
+
+% to compile a camera-ready version, add the [final] option, e.g.:
+\usepackage[final]{neurips_2019}
+
+% to avoid loading the natbib package, add option nonatbib:
+%     \usepackage[nonatbib]{neurips_2019}
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+
+% custom packages
+\usepackage{graphicx}
+\usepackage[dvipsnames]{xcolor}
+
+%\usepackage[numbers]{natbib}
+
+\setcitestyle{square}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\newcommand{\RR}{I\!\!R} %real numbers
+\newcommand{\Nat}{I\!\!N} %natural numbers
+\newcommand{\CC}{I\!\!\!\!C} %complex numbers
+
+\newcommand{\yocomment}[1]{\textbf{\textcolor{ForestGreen}{#1}}}
+\newcommand{\wmnote}[1]{\textbf{\textcolor{red}{#1}}}
+
+\newcommand{\dec}{D}
+\newcommand{\tran}{\mathcal{T}}
+\newcommand{\decspace}{\mathcal{D}}
+\newcommand{\featspace}{\mathcal{X}}
+\newcommand{\statespace}{\mathcal{S}}
+\newcommand{\acspace}{\mathcal{A}}
+\newcommand{\rew}{\mathcal{R}}
+\newcommand{\del}{\nabla}
+
+
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathmorphing,shapes.geometric}
+
+\usepackage{amsthm}
+
+% \newcommand{\E}[2]{E_{#1} \left [ #2\right ]}
+\newcommand{\E}{\mathop{\mathbb{E}}}
+
+\newcommand{\subheading}[1]{\subsection{#1}}
+%\vspace*{3mm} \textbf{\textit{\hspace*{-2mm} 
+%\newcommand{\subheading}[1]{\vspace*{3mm} \textbf{\textit{\hspace*{-2mm} \fontsize{11}{14} \selectfont #1}}}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\setcitestyle{square}
+
+\bibliographystyle{apalike}
+\title{Extracting Incentives From Black-Box Decisions}
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to LaTeX to determine where to break the
+% lines. Using \AND forces a line break at that point. So, if LaTeX puts 3 of 4
+% authors names on the first line, and the last on the second line, try using
+% \AND instead of \And before the third author name.
+
+\author{%
+  Yonadav Shavit\thanks{These authors contributed equally.} \\
+  Harvard SEAS\\
+  \texttt{yonadav@g.harvard.edu} \\
+   \And
+   William S. Moses\footnotemark[1] \\
+   MIT \\
+   \texttt{wmoses@mit.edu} \\
+}
+
+\begin{document}
+
+
+\maketitle
+
+\begin{abstract}
+    An algorithmic decision-maker incentivizes people to act in certain ways to receive better decisions.
+    These incentives can dramatically influence subjects' behaviors and lives, and it is important that both decision-makers and decision-recipients have clarity on which actions are incentivized by the chosen model.
+    While for linear functions, the changes a subject is incentivized to make may be clear, we prove that for many non-linear functions (e.g. neural networks, random forests), classical methods for interpreting the behavior of models (e.g. input gradients) provide poor advice to individuals on which actions they should take.
+    In this work, we propose a mathematical framework for understanding algorithmic incentives as the challenge of solving
+    a Markov Decision Process, where the state includes the set of input features, and the reward is a function of the model's output.
+    We can then leverage the many toolkits for solving MDPs (e.g. tree-based planning, reinforcement learning) to identify the optimal actions each individual is incentivized to take to improve their decision under a given model.
+    We demonstrate the utility of our method by estimating the maximally-incentivized actions in two real-world settings: 
+    a recidivism risk predictor we train using ProPublica's COMPAS dataset, and
+    an online credit scoring tool published by the Fair Isaac Corporation (FICO).
+\end{abstract}
+\input{1_Introduction.tex}
+\input{2_Related_Work.tex}
+\input{3_Framework.tex}
+\input{4_Linear_Drawbacks.tex}
+\input{5_Experiments.tex}
+\input{6_Discussion.tex}
+\input{7_Ack.tex}
+
+\vspace{1cm}
+\newpage
+
+\bibliography{bibliography.bib}
+\vspace{1cm}
+\newpage
+\appendix
+\input{A_Proofs.tex}
+
+\end{document}
+
+An algorithmic decision-maker incentivizes people to act in certain ways to receive better decisions. These incentives can dramatically influence subjects' behaviors and lives, and it is important that both decision-makers and decision-recipients have clarity on which actions are incentivized by the chosen model. While for linear functions, the changes a subject is incentivized to make may be clear, we prove that for many non-linear functions (e.g. neural networks, random forests), classical methods for interpreting the behavior of models (e.g. input gradients) provide poor advice to individuals on which actions they should take. In this work, we propose a mathematical framework for understanding algorithmic incentives as the challenge of solving a Markov Decision Process, where the state includes the set of input features, and the reward is a function of the model's output. We can then leverage the many toolkits for solving MDPs (e.g. tree-based planning, reinforcement learning) to identify the optimal actions each individual is incentivised to take to improve their decision under a given model. We demonstrate the utility of our method by estimating the maximally-incentivized actions in two real-world settings:  a recidivism risk predictor we train using ProPublica's COMPAS dataset, and an online credit scoring tool published by the Fair Isaac Corporation (FICO).

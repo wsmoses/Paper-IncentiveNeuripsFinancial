@@ -1,0 +1,86 @@
+
+\section{Proofs about Linear Approximations as Incentives}
+
+% People to thank:
+% Christina (first), Cynthia
+% Tangential: Michael Kim, Avanti Shrikumar, Yoram Moses, ...
+% Billy: probably my advisor (Charles), DOE grant
+
+Let us consider the continuous action space model (where we take infinitesimal actions and greedy is simply gradient following). 
+
+We want to find the conditions for the greedy strategy to be optimal for any starting position $x$. That is to say we want to find the necessary and sufficient conditions on a bounded continuously differentiable decision function $f$ , such that greedy is the optimal policy. Moreover, since the greedy policy does \textit{not} consider the number of resources $s$ remaining, we want to find cases where the a policy is optimal independent of the number of resources. \wmnote{and subsequently claim that this set is too restrictive}
+
+For such the optimal policy to be independent of resources it must necessarily be the greedy policy, since I can always chose an arbitrarily small $s$ which would require the optimal policy to be the greedy policy.
+
+For any starting position $x_0$, we can consider the disc $\mathcal{D}$ of radius $s$ that defines the region of reachable ending positions. If and only if a policy $\pi$ is optimal, it must create a path between the starting position $x$ and the position $x^* = \argmax_{y} f(y)$ that maximizes $f$ in $\mathcal{D}$. If there are multiple such points, $\pi$ may create a path to any such $x^*$.
+
+Let us assume we start at a suboptimal $x$ (i.e. $f(x) < f(x^*)$). If such a policy is optimal for all initial resources $s$ (as is necessary for greedy), it must be a straight line from $x$ to the closest $x^*$. If it is not a straight line to the closest $x^*$, then the policy is suboptimal when $s=|x-x^*|$ since it will not reach an $x^*$ when one such value was within reach.
+
+Suppose we start at a point $x_0$. We know that the optimal policy requires us to follow a straight line until we hit a $x^*$. By choosing progressively larger $s$ we ensure that the policy must take a straight line from $x_0$ to infinity or a local maximum. If the greedy policy is the optimal policy, then the line also continues backwards from $x_0$. It does so until it reaches a local minimum, or goes off to infinity.
+
+Case 0:
+It is not possible to have a saddle point (where $\nabla f = 0$ and its hessian has both a positive and negative eigenvalue). Consider two points infinitely close to the saddle, a lower point whose gradient towards points to the saddle, and a higher point whose gradient points away from the saddle. To get to the higher of the two points from the lower point the greedy policy would require going to the saddle before going to the higher point. However, since the line between these two points doesn't contain the saddle point, this is a suboptimal path and therefore decision functions with such saddles are disallowed.
+
+Let us divide this into four cases:
+\begin{itemize}
+    \item The function is constant
+    \item $\nabla f \ne 0$
+    \item No local maxima, but local minima.
+    \item There exists at least one local maximum.
+%    \item There exist only saddle points or local minima, of which there is at least one.
+\end{itemize}
+
+Case 1:
+
+If the function is constant, all policies are optimal.
+
+Case 2:
+
+Let us start with the case where there are $\nabla f \ne 0$ (and therefore no local or global maximum). Since there are no local extrema the optimal policy for $x_0$ for arbitrary $s$ must be a ray from there to infinity. Moreover when the ray is extended backwards to form a line, we find that an optimal policy for this additional set of points for arbitrary $s$ is to follow the line through $x_0$. We can also consider a second point $x_1$ not on this line and it creates a second line through $x_1$, where an optimal policy for any point on this line is to continue going up the line. These two lines must be parallel.
+
+If these two lines were not parallel, they must eventually meet at a point $y$. Therefore at $y$ there exist at least two possible optimal policies (following the line containing $x_0$ or the one containing $x_1$). Since there $\nabla f \ne 0$ a and the function is nonconstant, there must be a nonzero gradient at $y$. For an arbitrarily small resource size $\epsilon$ it is optimal to follow the gradient. However, this would mean there is only one optimal policy (given by the gradient) and we have a contradiction. Therefore the two lines must be parallel and a policy must always to take you in the same direction to be optimal.
+
+Therefore for an optimal policy to be independent of resources, all gradient lines of the decision function $f$ must be parallel for there to exist an optimal policy for all starting points, independent of resources.
+
+Formally, this implies that (for positive definite $g$):
+
+\begin{align}
+    \nabla f &= \vec{c} g(\vec x),\;\;g(\vec x) > 0 \; \forall x\\
+    \frac{\nabla_i f}{g(\vec x)} &= c_i
+\end{align}
+\yocomment{What does this second line mean? What is the constraint being placed on g? That it is decomposable?}\wmnote{The constraint is that g is positive definite (always above zero)}
+
+Suppose $\nabla_i f, c_i \ne 0$ for some $i$ (which must be the case since the function is not constant).
+\begin{align}
+    \frac{\nabla_j f}{\nabla_i f} &= \frac{c_j}{c_i},\; \forall j \\
+    \nabla_j f &= \frac{c_j}{c_i} \nabla_i f,\; \forall j\\
+    g(\vec x) &= h(\vec c \cdot \vec x)\\
+    \nabla f &= \vec{c} h(\vec{c} \cdot \vec x),\;\;h(m) > 0 \; \forall m\\
+\end{align}
+
+\wmnote{above diffe solve might require more rigor, the simplification into $h$ may want to have checked}
+%i have some more proofs that this implies g must be of form g(\vec c_2 \cdot x)
+
+Case 3:
+
+Now suppose there are local minima. An optimal policy must still follow straight lines from a given point to infinity (forming a ray from the starting point). Consider a point $y$ arbitrarily close to a local minimum at $m$ (and such that the closest local minimum is at $m$)\wmnote{this special casing to avoid cases of connected local minima [say in f(x,y) = sin(x), multiple minima at various y]} For an arbitrarily small resource allocation $\epsilon$ it is optimal to move as far away from $m$ as possible. Therefore because an optimal policy must follow straight lines, an optimal policy must follow straight lines away from local minima.
+
+Therefore for an optimal policy to be independent of resources, the gradient of the decision function $f$ must point away from the closest local minimum. 
+
+\wmnote{do we want figures for these?}
+
+%Suppose there is a local minima $m$. Consider and a point $y$ arbitrarily close but not on the minima ($f(y) > f(m), |y-m| < |\e|$). By taylor expansion we know $f(m+\e) = f(m) + \e^T \del^2 f(m) \e$, where $\del^2$ is the Hessian. Since $m$ is a local minimum the hessian is positive semidefinite.
+
+This requires that at a local minima the gradient of the function are straight lines pointing away from the local minima. 
+%think can prove that there cannot be two nonconnected local minima
+
+Case 4:
+
+Now for the final case, let us suppose our function has at least one local maximum. Close to a given local maximum an optimal policy must approach the local maximum. Therefore the optimal policy would succeed only if all the given local maximum were also global maximum. This must be true for all local maxima and therefore all local maxima must also be equivalent and global maxima. Now suppose that there were multiple local maxima. An optimal policy must take you in a straight line to the closest one, otherwise it is suboptimal where the resource count is the distance to the closest one.
+
+Therefore for an optimal policy to be independent of resources, all local maxima must also be global maxima and the gradient of the decision function $f$ must point towards the closest local maxima.
+
+\subsection{Summary}
+Putting it all together, for a policy to be optimal independent of resources -- and therefore for the greedy policy to be optimal: all local maxima in the decision function must be global maxima, the gradient of the decision function $f$ point from closest local minimum (or the boundary if none exists) to the closest local maximum (or the boundary if none exists), and if there are no global extrema the gradient of the decision function must be the same direction at all points.
+
+This is highly restrictive of decision functions, implying that typical greedy advice given to individuals is suboptimal.

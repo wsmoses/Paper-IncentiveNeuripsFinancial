@@ -1,0 +1,100 @@
+\documentclass{article}
+
+% if you need to pass options to natbib, use, e.g.:
+%     \PassOptionsToPackage{numbers, compress}{natbib}
+% before loading neurips_2019
+
+% ready for submission
+% \usepackage{neurips_2019}
+
+% to compile a preprint version, e.g., for submission to arXiv, add add the
+% [preprint] option:
+    % \usepackage[preprint]{neurips_2019}
+
+% to compile a camera-ready version, add the [final] option, e.g.:
+\usepackage[]{neurips_2019}
+
+% to avoid loading the natbib package, add option nonatbib:
+%     \usepackage[nonatbib]{neurips_2019}
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+
+% custom packages
+\usepackage{graphicx}
+\usepackage[dvipsnames]{xcolor}
+
+\usepackage{natbib}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\newcommand{\RR}{I\!\!R} %real numbers
+\newcommand{\Nat}{I\!\!N} %natural numbers
+\newcommand{\CC}{I\!\!\!\!C} %complex numbers
+
+\newcommand{\yocomment}[1]{\textbf{\textcolor{ForestGreen}{#1}}}
+\newcommand{\wmnote}[1]{\textbf{\textcolor{red}{#1}}}
+\newcommand{\dec}{D}
+\newcommand{\tran}{\mathcal{T}}
+\newcommand{\decspace}{\mathcal{D}}
+\newcommand{\featspace}{\mathcal{X}}
+\newcommand{\statespace}{\mathcal{S}}
+\newcommand{\acspace}{\mathcal{A}}
+\newcommand{\rew}{\mathcal{R}}
+% \newcommand{\E}[2]{E_{#1} \left [ #2\right ]}
+\newcommand{\E}{\mathop{\mathbb{E}}}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\bibliographystyle{apalike}
+\title{Supplement to "Extracting Incentives From Black-Box Decisions"}
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to LaTeX to determine where to break the
+% lines. Using \AND forces a line break at that point. So, if LaTeX puts 3 of 4
+% authors names on the first line, and the last on the second line, try using
+% \AND instead of \And before the third author name.
+
+\author{%
+  Yonadav Shavit\thanks{These authors contributed equally.} \\
+  Harvard\\
+  \texttt{yonadav@g.harvard.edu} \\
+   \And
+   William S. Moses\footnotemark[1] \\
+   MIT \\
+   \texttt{wmoses@mit.edu} \\
+}
+
+\begin{document}
+
+\maketitle
+
+\section{Experiment Details}
+\subsection{Decision Settings}
+We used a preprocessed version of the ProPublica dataset from Kaggle (\cite{ofer_2017}). We predicted only recidivism for violent crimes. We encoded race, gender, and charge degree via $1$-hot encoding. We extracted a charge type from the charge description, by associating frequently-occurring word fragments with particular crime types (e.g. `Theft', `Burgl', `Robbery' with theft; `Influence', `Cannabis', `Cocaine', `Meth', `Possess' with drug crimes). We further included several continuous attributes: age, juvenile felony count, juvenile misdemeanor count, juvenile `other' count, and the number of priors.
+
+Our random forest hyperparameters were chosen based on which ones maximized the AUROC metric (Area Under Receiver-Operating Characteristic curve) on a held-out validation set of $20\%$ of the data, averaged across $10$ trials. The version without race or gender ended up with a random forest with $50$ trees of max depth $4$, while the version with them converged on a random forest with $200$ trees and max depth $4$. The number of positives in the training set was inflated via resampling from ~$7\%$ to $33\%$. The final validation AUROC score for the learned decision functions was $0.650$ for the version including race/gender, and $0.655$ for the version including them. (This increase may be due to a regularization effect.) We then generated bucket ranges from $1$ to $10$ by finding the number of individuals in each original COMPAS score range, and then splitting the individuals in the training set, sorted by the probability the model gave for them to recidivate, into similar-sized buckets. The cutoffs for these buckets were then used to determine the score for the validation set.
+
+In order to ensure that our "high-risk" incentive-evaluation group was the same across both classifiers, we used the original COMPAS scores to determine risky individuals - meaning that their original COMPAS score must have been $\geq 3$.
+
+\subsection{FICO Dataset}
+We collected data from the FICO datset by sampling from FICO's score simulator available here: \url{https://www.myfico.com/fico-credit-score-estimator/estimator/}. The data ($~6\times 10^6$ points) was used to fit a nearest neighbors regression which was used to determine FICO scores.
+
+For the realistic FICO model we considered an action model consisting of three options for paying on time (paying the maximum possible (min of cash / current debt), paying half of the debt, and paying the minimum payment). In addition one could not pay or declare bankrupcy. If one paid on time, one can also choose to open or close credit cards. Closing a credit card closed the most recent card. Not paying was disallowed if one has no credit card (representing simply paying up front for everything). On-time payment was disallowed if one did not have sufficient cash for the payment. Furthermore, only bankruptcy was allowed if the interest payments on debt exceeded ones available net income. There was also a limit of 10 credit cards. From there, we mapped the user's state to a way of answering the 10 FICO questions. For ease, we assumed no loans taken out, debt was distributed evenly across credit cards, and missed payments happen to all cards when they occur.
+
+For the simple FICO model we evaluated the policies on a random sample of 1000 starting points.
+
+
+\subsection{Policies}
+For our Monte-Carlo Tree Search UCB exploration parameter, we used $C=5$ for recidivism prediction and $C=1$ for credit scoring.
+\bibliography{bibliography.bib}
+
+\end{document}

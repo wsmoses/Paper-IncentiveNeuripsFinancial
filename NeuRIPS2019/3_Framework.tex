@@ -1,0 +1,42 @@
+\section{Framework}
+\label{sec:framework}
+At a high level, we propose that to properly understand how an individual is incentivized to act, we must first define the actions available to an individual, and their effects. Then, the individual is incentivized to take whichever action will modify their current state such that, after executing a sequence of additional actions, they will reach a final state that maximizes their received decision.
+
+Consider an individual with state $s$ drawn from a universe of individuals $\statespace$. Let $I_x(s) = x$ return the decision features $x \in \featspace$ of the individual, and let $\dec: \featspace \rightarrow \RR^+$ be a decision function that maps the individual's features to a positive real-valued decision.
+%still think real not necessary but minutia aren't really relevant here :P
+
+While there may be many different ways that an individual may wish to change their received decision, we restrict our attention to the simple case where the individual wants to maximize the value of the decision $\dec(x)$ they receive. We can enumerate a set of actions $a \in \acspace$ that the individual can execute in order to change their state $s$, which may consequently affect their received decision.
+We specify a transition model $\mathcal{T}: \statespace \times \acspace \rightarrow \Delta(\statespace)$ that describes the individual's new state $s' \sim \tran(s, a)$ as a draw from the distribution of possible consequences of taking action $a$ at state $s$. One of the benefits of this framing is that the actions can be defined as the intuitive choices an individual can make, and each action can have complex, state-dependent effects. 
+
+As an example, let's consider the case of an applicant seeking to maximize their credit score before applying for a home loan: $s$ would be the overall state of the individual, including how much time they had left before they wanted to buy a home; $x$ would be the subset of their features used in a credit model; $\dec$ would be the credit scoring function; $a$ could be the action of spending a month paying down the debt on a credit card; $\tran(s, a)$ would be the impact of that payment on the individual's debt-to-income ratio and credit utilization, along with the decrease in time remaining before the individual plans to apply for the loan.
+
+We define an ``agency MDP'' as the Markov decision process where the state is the individual's overall state $s$, the actions available are $a \in \acspace$, and the transition model is $\tran(s, a)$. We specify a terminal function $\text{end}(s)$ that determines whether the sequence has ended, and define the reward function $\rew$:
+\begin{equation}
+    \rew(s) = 
+    \begin{cases}
+    \dec(I_x(s)) & \text{if}~ \text{end}(s) \\
+    0 & \text{otherwise}
+    \end{cases}
+\end{equation}
+
+Given a deterministic advice policy $\pi$ from the set of policies $\Pi: \statespace \rightarrow \acspace$ where $\pi(s)$ maps state $s$ to advised action $a$, let $H_\pi(s)$ be the distribution of end-states resulting from "rolling out" $\pi$ starting at state $s$ via the following procedure: starting at $s_0=s$, take action $a_0 = \pi(s_0)$ to get a new state $s_1 \sim \tran(s_0, a)$, then execute a new action $a_1=\pi(s_1)$ to get a new state $s_2$, and repeat, until arriving at a terminal state $s_f$ such that $\text{end}(s_f)=\text{True}$. We often take $\text{end}(s)$ as asserting whether the available \text{resources} (time, money, etc) necessary to act have run out. Attributing such costs to actions is important: we want to evaluate the utility of an action while enforcing realistic constraints on the decision-recipient (e.g. a student preparing for an exam has only a fixed amount of time to study).
+
+We say that an individual with state $s$ is $\textit{incentivized}$ to execute action $a^*$ if that action will \textbf{maximally} improve their eventual expected decision, more than any alternative action. More precisely:
+\begin{equation}
+\label{eq:incentivequality}
+    a^* = \pi^*(s) = \max_{\pi \in \Pi} \E_{s_f \sim H_\pi(s)} \left [\dec\left(I_x(s_f)\right)\right ]
+\end{equation}
+where $\pi^*$ is a policy maximizing the non-discounted expected reward on the agency MDP. We can approximate this optimal advice policy by leveraging the countless approaches in the reinforcement learning and planning literature dedicated to the task of computing optimal policies for MDPs \cite{kaelbling1996reinforcement, kolobov2012planning}.
+We can also compare the effectiveness of different advice policies by comparing the expected decision resulting from following each advice policy: $\E_{s_f \sim H_\pi(s)} \left [\dec\left(I_x(s_f)\right)\right ]$.
+%NOTE: in subsequent version, make this equation its own line and change \label{eq:incentivequality} to refer to that line
+
+Note that we have defined the maximally-incentivized action as the action maximizing the resulting decision, conditioned on the fact that the subject will, after following the incentive, continue to follow an optimal action policy (i.e. not changing their mind). Alternative models of individual behavior can largely be incorporated into this same framework by modifying the state and transition model - for example, by letting $s$ contain "commitment to the policy", having certain actions decrease that quantity, and reverting to a fixed alternative policy if commitment ever drops below a threshold.
+
+% We can clearly see that the incentives proscribed by a particular machine decision-maker are a function both of the decision model, and of the actions available to the individual. This is important. 
+A major principle of our framework is that one cannot determine which behaviors are incentivized by a decision-model without explicitly considering the actions available to the decision-receiver. For example, advising an individual to "open more credit cards" to improve their credit score may backfire and reduce their score if having more cards increases their likelihood of taking on unmanageable debt. Choosing the right transition model can be tricky. While there does exist a true transition model (reality), any approximate model chosen will significantly impact the incentives any method will discover. That said, as previously mentioned, transition models validated on real-world data have been used extensively in the economics literature \cite{rust1994structural}. We illustrate the impact of different transition models on the incentives generated in a real credit scoring model in Section \ref{sec:experiments}. 
+
+
+% \newcommand{\dec}{\mathcal{D}}
+% \newcommand{\tran}{\mathcal{T}}
+% \newcommand{\inpspace}{\mathcal{X}}
+% \newcommand{\acspace}{\mathcal{A}}

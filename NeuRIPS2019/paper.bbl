@@ -1,0 +1,181 @@
+\begin{thebibliography}{}
+
+\bibitem[Angwin et~al., 2019]{angwin_larson_kirchner_mattu_2019}
+Angwin, J., Larson, J., Kirchner, L., and Mattu, S. (2019).
+\newblock Machine bias.
+
+\bibitem[Baehrens et~al., 2010]{baehrens2010explain}
+Baehrens, D., Schroeter, T., Harmeling, S., Kawanabe, M., Hansen, K., and
+  Müller, K.-R. (2010).
+\newblock How to explain individual classification decisions.
+\newblock {\em Journal of Machine Learning Research}, 11(Jun):1803--1831.
+
+\bibitem[Browne et~al., 2012]{browne2012survey}
+Browne, C.~B., Powley, E., Whitehouse, D., Lucas, S.~M., Cowling, P.~I.,
+  Rohlfshagen, P., Tavener, S., Perez, D., Samothrakis, S., and Colton, S.
+  (2012).
+\newblock A survey of monte carlo tree search methods.
+\newblock {\em IEEE Transactions on Computational Intelligence and AI in
+  games}, 4(1):1--43.
+
+\bibitem[Doshi-Velez and Kim, 2017]{doshi2017towards}
+Doshi-Velez, F. and Kim, B. (2017).
+\newblock Towards a rigorous science of interpretable machine learning.
+\newblock {\em arXiv preprint arXiv:1702.08608}.
+
+\bibitem[Dwork et~al., 2012]{dwork2012fairness}
+Dwork, C., Hardt, M., Pitassi, T., Reingold, O., and Zemel, R. (2012).
+\newblock Fairness through awareness.
+\newblock In {\em Proceedings of the 3rd Innovations in Theoretical Computer
+  Science Conference}, pages 214--226. ACM.
+
+\bibitem[Eubanks, 2018]{eubanks_2018}
+Eubanks, V. (2018).
+\newblock Automating bias.
+\newblock {\em Scientific American}, 319(5):68–71.
+
+\bibitem[{Fair Isaac Corporation}, 2019]{myfico}
+{Fair Isaac Corporation} (2019).
+\newblock Get your estimated {FICO} scores range.
+\newblock \url{https://www.myfico.com/fico-credit-score-estimator/estimator/}.
+
+\bibitem[Frankel, 2018]{frankel_2018}
+Frankel, M. (2018).
+\newblock How does the average american spend their paycheck? see how you
+  compare.
+
+\bibitem[Grossman and Hart, 1992]{grossman1992analysis}
+Grossman, S.~J. and Hart, O.~D. (1992).
+\newblock An analysis of the principal-agent problem.
+\newblock In {\em Foundations of Insurance Economics}, pages 302--340.
+  Springer.
+
+\bibitem[Guidotti et~al., 2019]{guidotti2019survey}
+Guidotti, R., Monreale, A., Ruggieri, S., Turini, F., Giannotti, F., and
+  Pedreschi, D. (2019).
+\newblock A survey of methods for explaining black box models.
+\newblock {\em ACM Computing Surveys (CSUR)}, 51(5):93.
+
+\bibitem[Hardt et~al., 2016]{hardt2016strategic}
+Hardt, M., Megiddo, N., Papadimitriou, C., and Wootters, M. (2016).
+\newblock Strategic classification.
+\newblock In {\em Proceedings of the 2016 ACM conference on Innovations in
+  Theoretical Computer Science}, pages 111--122. ACM.
+
+\bibitem[Heidari et~al., 2019]{heidari2019long}
+Heidari, H., Nanda, V., and Gummadi, K.~P. (2019).
+\newblock On the long-term impact of algorithmic decision policies: Effort
+  unfairness and feature segregation through social learning.
+\newblock {\em arXiv preprint arXiv:1903.01209}.
+
+\bibitem[Hu et~al., 2019]{hu2019disparate}
+Hu, L., Immorlica, N., and Vaughan, J.~W. (2019).
+\newblock The disparate effects of strategic manipulation.
+\newblock In {\em Proceedings of the Conference on Fairness, Accountability,
+  and Transparency}, pages 259--268. ACM.
+
+\bibitem[Josephson and Josephson, 2018]{josephson_josephson_2018}
+Josephson, A. and Josephson, A. (2018).
+\newblock The average credit card limit.
+
+\bibitem[Joshi et~al., 2019]{Joshi2019towards}
+Joshi, S., Koyejo, O., Vijitbenjaronk, W., Kim, B., and Ghosh, J. (2019).
+\newblock Towards realistic individual recourse and actionable explanations in
+  black-box decision making systems.
+\newblock {\em arXiv preprint arXiv:1907.09615}.
+
+\bibitem[Kaelbling et~al., 1996]{kaelbling1996reinforcement}
+Kaelbling, L.~P., Littman, M.~L., and Moore, A.~W. (1996).
+\newblock Reinforcement learning: A survey.
+\newblock {\em Journal of Artificial Intelligence Research}, 4:237--285.
+
+\bibitem[Karimi et~al., 2019]{karimi2019model}
+Karimi, A.-H., Barthe, G., Belle, B., and Valera, I. (2019).
+\newblock Model-agnostic counterfactual explanations for consequential
+  decisions.
+\newblock {\em arXiv preprint arXiv:1905.11190}.
+
+\bibitem[Keane and Wolpin, 1997]{keane1997career}
+Keane, M.~P. and Wolpin, K.~I. (1997).
+\newblock The career decisions of young men.
+\newblock {\em Journal of Political Economy}, 105(3):473--522.
+
+\bibitem[Kerr, 1975]{kerr1975folly}
+Kerr, S. (1975).
+\newblock On the folly of rewarding a, while hoping for b.
+\newblock {\em Academy of Management journal}, 18(4):769--783.
+
+\bibitem[Kleinberg and Raghavan, 2018]{kleinberg2018classifiers}
+Kleinberg, J. and Raghavan, M. (2018).
+\newblock How do classifiers induce agents to invest effort strategically?
+\newblock {\em arXiv preprint arXiv:1807.05307}.
+
+\bibitem[Kolobov, 2012]{kolobov2012planning}
+Kolobov, A. (2012).
+\newblock Planning with markov decision processes: An ai perspective.
+\newblock {\em Synthesis Lectures on Artificial Intelligence and Machine
+  Learning}, 6(1):1--210.
+
+\bibitem[Lipton, 2016]{lipton2016mythos}
+Lipton, Z.~C. (2016).
+\newblock The mythos of model interpretability.
+\newblock {\em arXiv preprint arXiv:1606.03490}.
+
+\bibitem[Lundberg and Lee, 2016]{lundberg2016unexpected}
+Lundberg, S. and Lee, S.-I. (2016).
+\newblock An unexpected unity among methods for interpreting model predictions.
+\newblock {\em arXiv preprint arXiv:1611.07478}.
+
+\bibitem[McCann, 2019]{mccann_2019}
+McCann, A. (2019).
+\newblock What is the average credit card interest rate?
+
+\bibitem[Milli et~al., 2019]{milli2019social}
+Milli, S., Miller, J., Dragan, A., and Hardt, M. (2019).
+\newblock The social cost of strategic classification.
+\newblock {\em In Proceedings of ACM FAT*}.
+
+\bibitem[Ramakrishnan et~al., 2019]{Ramakrishnan2019synthesizing}
+Ramakrishnan, G., Lee, Y.~C., and Albargouthi, A. (2019).
+\newblock Synthesizing action sequences for modifying model decisions.
+\newblock {\em arXiv preprint arXiv:1910.00057}.
+
+\bibitem[Ribeiro et~al., 2016]{ribeiro2016should}
+Ribeiro, M.~T., Singh, S., and Guestrin, C. (2016).
+\newblock Why should i trust you?: Explaining the predictions of any
+  classifier.
+\newblock In {\em Proceedings of the 22nd ACM SIGKDD international conference
+  on knowledge discovery and data mining}, pages 1135--1144. ACM.
+
+\bibitem[Russell, 2019]{russell2019efficient}
+Russell, C. (2019).
+\newblock Efficient search for diverse coherent explanations.
+\newblock {\em arXiv preprint arXiv:1901.04909}.
+
+\bibitem[Rust, 1994]{rust1994structural}
+Rust, J. (1994).
+\newblock Structural estimation of markov decision processes.
+\newblock {\em Handbook of Econometrics}, 4:3081--3143.
+
+\bibitem[{United States Congress}, 2003]{usc_2016}
+{United States Congress} (2003).
+\newblock Fair and accurate credit transactions act of 2003.
+
+\bibitem[Ustun et~al., 2019]{ustun2019actionable}
+Ustun, B., Spangher, A., and Liu, Y. (2019).
+\newblock Actionable recourse in linear classification.
+\newblock In {\em Proceedings of the Conference on Fairness, Accountability,
+  and Transparency}, pages 10--19. ACM.
+
+\bibitem[Van~Hasselt et~al., 2016]{van2016deep}
+Van~Hasselt, H., Guez, A., and Silver, D. (2016).
+\newblock Deep reinforcement learning with double q-learning.
+\newblock In {\em Thirtieth AAAI Conference on Artificial Intelligence}.
+
+\bibitem[Wachter et~al., 2017]{wachter2017counterfactual}
+Wachter, S., Mittelstadt, B., and Russell, C. (2017).
+\newblock Counterfactual explanations without opening the black box: Automated
+  decisions and the gdpr.
+\newblock {\em Harvard Journal of Law \& Technology}, 31(2):2018.
+
+\end{thebibliography}

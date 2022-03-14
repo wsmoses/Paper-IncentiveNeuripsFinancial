@@ -1,0 +1,91 @@
+\section{Proofs}
+\label{sec:proofs}
+
+\newtheorem{atheorem}{Theorem}
+\newtheorem{acorollary}{Corollary}[atheorem]
+\setcounter{atheorem}{0}
+
+As mentioned in Section \ref{sec:linear}, we define a locally-optimal \textit{greedy} policy as a policy that chooses actions based only on maximizing the immediate improvement in the received decision:
+\begin{equation*}
+\pi_{local}(s) = \argmax_{a \in \acspace} \E_{s' \sim \tran(s,a)} \left [\dec\left(I_x(s')\right)\right ]
+\end{equation*}
+When the function is differentiable, we can also define the \textit{gradient-following} policy for a state $s = [x, r]$ composed of only the decision features $x$ and the remaining available displacement $r$. Note that in this hypothetical transition model, we can manipulate every feature axis in $x$ independently.
+\begin{equation*}
+\pi_{gradient}(s) = \argmax_{a \in\{a' \in \RR^{dim(x)}~| ~\|a'\|_2 = \epsilon, ~\epsilon \ll 1\} } \dec(x + a) ~~= ~~ \epsilon \nabla_x\dec\left(x\right)
+\end{equation*}
+
+\begin{atheorem}
+If there exists a policy that is optimal independent of the number of resources remaining, it must be equivalent to the greedy policy.
+%For a policy to be optimal independent of resources remaining it must be equivalent to the greedy policy.
+\end{atheorem}
+\begin{proof}
+Suppose our policy $\pi(s)$ does not consider the number of resources left. If $\pi(s)$ is optimal, it must be optimal given the minimum number of resources for there to exist a valid action (in the case of a continuous number of resources we may use the limit of $\text{resources} \rightarrow 0$).
+\end{proof}
+
+\begin{acorollary}
+Only if a decision function $\dec$ satisfies the constraints required for greedy ascent to reach a global maximum from any point can the greedy policy be an optimal advice policy for $\dec$. This means all local maxima must also be global maxima for a decision function to have an optimial policy independent of resources.
+% For a decision function $\dec$ to permit an optimal policy that does not consider resources remaining, the decision function $\dec$ must satisfy the constraints that are required for gradient descent to reach a global maximum (any local maxima are global maxima, etc).
+
+
+%If a policy that is optimal independent of resources to exist for decision function $\dec$, the decision function $\dec$ must satisfy the constraints for gradient descent to work (any local maxima are global maxima, etc). \wmnote{perhaps some citations}
+\end{acorollary}
+
+\begin{atheorem}
+% For a decision function $\dec$ to permit an optimal policy that does not consider resources remaining, the gradient field of $\dec$ must consist only of straight lines whenever $\del \dec \ne 0$. \yocomment{Is this extra part necessary?} , assuming $\dec$ is not constant.
+For a continuous action space in $L_2$, a greedy policy is optimal only if the gradient field of $\dec$ consists of straight lines wherever $\del \dec \ne 0$.
+\end{atheorem}
+\begin{proof}
+For a continuous action space in $L_2$, a greedy policy is equivalent to the gradient-following policy.
+
+Consider a point $x_0$ where $\del \dec(x_0) \ne 0$. Thus $\dec(x_0)$ is not a global maximum since we can follow $\del \dec(x_0)$ to a more optimal point. 
+
+Suppose $\dec$ has a global maximum.  Let $x^*$ be the closest point to $x_0$ where $\dec(x^*)$ is a global maximum. The optimal policy for $|x^* - x_0|$ resources starting at $x_0$ is a straight line from $x_0$ to $x^*$, since any other policy would not reach a global maximum. %\yocomment{Extreme nitpick: what if there are two equidistant global maxima?}
+
+Suppose $\dec$ has no global maximum. By Corollary \ref{localAreGlobal}, $\dec$ has no local maxima. Let $r$ be an arbitrary resource quantity. Let $x^* = \argmax_{x, |x-x_0| \le r} \dec(x)$, the best point reachable from $x$ with $s$ resources. Since $\dec$ has no local maxima, $x^*$ must be on the boundary of all reachable destinations from $x_0$ (assuming $\dec$ is not constant). Therefore the optimal policy for $r$ resources starting at $x_0$ is a straight line from $x_0$ to $x^*$.
+
+Since the optimal policy follows a straight line wherever $\del \dec \ne 0$, if gradient-following is an optimal policy, then the gradient field of $\dec$ must be straight lines where $\del \dec \ne 0$.
+\end{proof}
+
+\begin{acorollary}
+For a continuous action space in L2, if $\del \dec \ne 0$ everywhere, then the gradient-following policy is optimal if and only if all gradients point in the same direction $\vec c$ and have equal magnitude in the plane tangent to $\vec c$.
+\end{acorollary}
+
+\begin{proof}
+Since $\del \dec \ne 0$, Theorem \ref{Linear} states that an agent following the gradient starting at $x_0$ will draw a ray to infinity. This ray can be extended backwards to form a line, such that following the gradient starting at any point on this line will keep the agent on the line, moving in one direction. This is also true for an arbitrary second point $x_1$. These two lines must be parallel.
+
+If these two lines were not parallel, they must eventually meet at a point $y$. Therefore at $y$ the gradient must point in two directions at once. Since $\del \dec \ne 0$ this is not possible, generating a contradiction.
+
+Therefore all gradient lines of $\dec$ must be parallel, pointing in some direction $\vec c$.
+
+Moreover, consider the plane tangent to $\vec c$ at an arbitrary $x$. Gradients at all points on this plane must not only point in the same direction, but have the same magnitude.  A full proof is omitted for brevity, but intuitively if this were not the case, it would be optimal for an agent at a point with smaller gradient to move slightly in the direction of a point in the same plane with a larger gradient, creating a contradiction. Additionally, the value of the decision function must be equal at all points in this plane (otherwise the gradient would not be tangent to the plane).
+
+Last, we prove gradient-following is optimal. 
+As the decision function is equal at all values in planes tangent to $\vec c$, it sufficies to show gradient-following picks the maximum value along $\vec c$. Since the gradient points in the direction of $\vec c$ and is nonzero, gradient following is optimal.%
+%
+%Consider starting at two points $x_0$ and $x_1$ in the same plane tangent to $\vec{c}$. %
+% Suppose we start at $x_0$. Consider also a point $x_1$ in the plane tangent to $\vec{c}$ at $x_0$. 
+%From above, we know the value and gradients of $x_1$ equal those of $x_0$. Thus the maximum value by following the gradient line at $x_1$ a distance $r$ would equal that of starting at $x_0$. Therefore gradient-following results in a decision better or equal to any other within $r$ resources
+% and is optimal
+\end{proof}
+%
+%Moreover, consider the plane tangent to $\vec c$ at an arbitrary $x$. Gradients at all points on this plane not only must point in the same direction, but be of the same magnitude. A full proof is omitted for brevity, but intuitively if this were not the case it would be optimal a point with smaller gradient to point more in the direction a point with larger gradient and thus all gradient lines do not point in the same direction.
+%
+% Suppose this were not the case. Therefore there must exist an $\vec x$, $\vec x+\vec \epsilon$ on the plane such that the gradients pointed in the same direction but had different magnitudes. WLOG suppose $|\del \dec(\vec x)| > |\del \dec(\vec x+\vec \epsilon)|$ Therefore following the gradient field at $\vec x$ a distance $\d$ will result in a larger decision than that of following $\vec x + \vec \epsilon$. However, the gradient must point towards
+%
+% Formally, this implies that (for positive definite $g$):
+
+% \begin{align}
+%     \nabla f &= \vec{c} g(\vec x),\;\;g(\vec x) > 0 \; \forall x\\
+%     \frac{\nabla_i f}{g(\vec x)} &= c_i
+% \end{align}
+% \yocomment{What does this second line mean? What is the constraint being placed on g? That it is decomposable?}\wmnote{The constraint is that g is positive definite (always above zero)}
+%
+% Suppose $\nabla_i f, c_i \ne 0$ for some $i$ (which must be the case since the function is not constant).
+% \begin{align}
+%     \frac{\nabla_j f}{\nabla_i f} &= \frac{c_j}{c_i},\; \forall j \\
+%     \nabla_j f &= \frac{c_j}{c_i} \nabla_i f,\; \forall j\\
+%     g(\vec x) &= h(\vec c \cdot \vec x)\\
+%     \nabla f &= \vec{c} h(\vec{c} \cdot \vec x),\;\;h(m) > 0 \; \forall m\\
+% \end{align}
+% (Moved to rest to supplement.tex)
+%Let us consider the conditions necessary to derive an optimal policy. 
